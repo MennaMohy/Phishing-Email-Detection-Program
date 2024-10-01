@@ -2,7 +2,7 @@
 #include<vector>
 #include<bits/stdc++.h>
 using namespace std;
-/*void problem2(){
+void problem2(){
     string m;
     getline(cin ,m );
     vector<string> a;
@@ -68,9 +68,7 @@ using namespace std;
         cout << a[i] << " ";
     }
 }
-*/
-int main() {
-    // problem2();
+void problem5(){
     char choice;
     vector<pair<string, int>> a = {
             {"salma",  85},
@@ -94,8 +92,8 @@ int main() {
                 break;
             }
             if (choice != 'a' && choice != 'b' && choice !=
-                                                  'c' ) {
-                throw invalid_argument("Invalid input! Please enter 'a', 'b' or 'c'.") ;
+                                                  'c') {
+                throw invalid_argument("Invalid input! Please enter 'a', 'b' or 'c'.");
                 cout << endl;
             }
             switch (choice) {
@@ -107,17 +105,18 @@ int main() {
                     for (int i = 0; i < 10; i++) {
                         if (score > a[i].second) {
                             a.erase(a.end() - 1);
-                            a.insert(a.begin() + i,t);
+                            a.insert(a.begin() + i, t);
                             break;
-                        }else{
-                            a.push_back(t);                   }
+                        } else {
+                            a.push_back(t);
+                        }
                     }
-                    sort(a.begin(), a.end(), [](const pair<string, int>& p1, const pair<string, int>& p2) {
+                    sort(a.begin(), a.end(), [](const pair<string, int> &p1, const pair<string, int> &p2) {
                         return p1.second > p2.second;  // Compare scores
                     });
 
                 }
-                 break;
+                    break;
                 case 'b' : {
 
                     for (int i = 0; i < 10; i++) {
@@ -128,33 +127,32 @@ int main() {
                     }
                     cout << endl;
                 }
-                break;
+                    break;
                 case 'c': {
                     string name;
                     cin >> name;
                     bool found = false;
                     bool found_list = false;
-                    for (int i = 0; i < 10 ; i++) {
+                    for (int i = 0; i < 10; i++) {
                         if (name == a[i].first) {
                             cout << a[i].second << endl;
                             found = true;
                             break;
                         }
                     }
-                    for(int i = 0; i < a.size(); i++) {
-                        if (name == a[i].first){
+                    for (int i = 0; i < a.size(); i++) {
+                        if (name == a[i].first) {
                             found_list = true;
                             break;
                         }
                     }
-                    if(!found && found_list){
+                    if (!found && found_list) {
                         cout << "Player is not in Top 10." << endl;
-                    }
-                    else if(!found_list){
+                    } else if (!found_list) {
                         cout << "This player is not in this list." << endl;
                     }
                 }
-                break;
+                    break;
             }
             cout << "if you want to stop, Enter 'y' to stop" << endl;
 
@@ -162,6 +160,9 @@ int main() {
         catch (invalid_argument &e) {
             cout << e.what();
         }
-
     }
+}
+int main() {
+    // problem2();
+    // problem5();
 }
