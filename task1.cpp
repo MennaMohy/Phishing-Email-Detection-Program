@@ -4,6 +4,7 @@
 using namespace std;
 void problem2(){
     string m;
+    cout << "Enter the string : " << endl;
     getline(cin ,m );
     vector<string> a;
     string temp = "";
@@ -67,21 +68,18 @@ void problem2(){
     for(int i = 0 ; i < a.size() ; i++){
         cout << a[i] << " ";
     }
+    cout << endl;
 }
 void problem5(){
     char choice;
-    vector<pair<string, int>> a = {
-            {"salma",  85},
-            {"menna",  90},
-            {"habiba", 95},
-            {"ahmed",  80},
-            {"Eve",    100},
-            {"Frank",  70},
-            {"Grace",  60},
-            {"yasser", 75},
-            {"fatma",  65},
-            {"Jack",   85}
-    };
+    vector<pair<string, int>> a ;
+    cout << "Enter the name and score of players : "<< endl;
+    for(int i = 0; i < 10 ; i++){
+        string name;
+        int score;
+        cin >> name >> score;
+       a.push_back({name,score});
+    }
     sort(a.rbegin(), a.rend());
     while (true) {
         try {
@@ -94,12 +92,12 @@ void problem5(){
             if (choice != 'a' && choice != 'b' && choice !=
                                                   'c') {
                 throw invalid_argument("Invalid input! Please enter 'a', 'b' or 'c'.");
-                cout << endl;
             }
             switch (choice) {
                 case 'a': {
                     string name;
                     int score;
+                    cout << "Enter the new player name and score: "<< endl;
                     cin >> name >> score;
                     pair<string, int> t(name, score);
                     for (int i = 0; i < 10; i++) {
@@ -107,8 +105,6 @@ void problem5(){
                             a.erase(a.end() - 1);
                             a.insert(a.begin() + i, t);
                             break;
-                        } else {
-                            a.push_back(t);
                         }
                     }
                     sort(a.begin(), a.end(), [](const pair<string, int> &p1, const pair<string, int> &p2) {
@@ -127,8 +123,9 @@ void problem5(){
                     }
                     cout << endl;
                 }
-                    break;
+                break;
                 case 'c': {
+                    cout << "Enter name of player to get maximum score : "<< endl;
                     string name;
                     cin >> name;
                     bool found = false;
@@ -163,6 +160,44 @@ void problem5(){
     }
 }
 int main() {
-    // problem2();
-    // problem5();
+    int choice;
+    while (true) {
+        try {
+            cout << "Enter the problem number: " << endl;
+            cin >> choice;
+            if(cin.fail()){
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                throw invalid_argument("Invalid input! Please enter '2', '5' ,'8' or '11'");
+            }
+            cin.ignore();
+            if (choice == -1) {
+                break;
+            }
+            if (choice != 2 && choice != 5 && choice !=
+                                                  8 && choice != 11) {
+                throw invalid_argument("Invalid input! Please enter '2', '5' ,'8' or '11'");
+            }
+            switch(choice){
+                case 2:{
+                    problem2();
+                }
+                break;
+                case 5:{
+                    problem5();
+                }
+                break;
+                case 8: {
+                  //problem8();
+                }
+                break;
+                case 11:{
+                  //problem11();
+                }
+            }
+        }
+        catch(invalid_argument & e){
+            cout << e.what()<< endl;
+        }
+    }
 }
