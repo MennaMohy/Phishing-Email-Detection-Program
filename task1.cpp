@@ -72,15 +72,19 @@ void problem2(){
 }
 void problem5(){
     char choice;
-    vector<pair<string, int>> a ;
+    vector<pair<int, string>> a ;
+    int n;
+    cout << "Enter the number of players :"<< endl;
+    cin >> n;
     cout << "Enter the name and score of players : "<< endl;
-    for(int i = 0; i < 10 ; i++){
+    for(int i = 0; i < n ; i++){
         string name;
         int score;
         cin >> name >> score;
-       a.push_back({name,score});
+       a.push_back({score,name});
+       sort(a.rbegin(), a.rend());
     }
-    sort(a.rbegin(), a.rend());
+
     while (true) {
         try {
             cout << "Enter a character (a, b, c): " << endl;
@@ -99,24 +103,22 @@ void problem5(){
                     int score;
                     cout << "Enter the new player name and score: "<< endl;
                     cin >> name >> score;
-                    pair<string, int> t(name, score);
+                    pair<int,string> t(score, name);
                     for (int i = 0; i < 10; i++) {
-                        if (score > a[i].second) {
+                        if (score > a[i].first) {
                             a.erase(a.end() - 1);
                             a.insert(a.begin() + i, t);
                             break;
                         }
                     }
-                    sort(a.begin(), a.end(), [](const pair<string, int> &p1, const pair<string, int> &p2) {
-                        return p1.second > p2.second;  // Compare scores
-                    });
+                    sort(a.rbegin(), a.rend());
 
                 }
                     break;
                 case 'b' : {
 
                     for (int i = 0; i < 10; i++) {
-                        cout << a[i].first << " " << a[i].second;
+                        cout << a[i].second << " " << a[i].first;
                         if (i < 9) {
                             cout << ", ";
                         }
@@ -131,14 +133,14 @@ void problem5(){
                     bool found = false;
                     bool found_list = false;
                     for (int i = 0; i < 10; i++) {
-                        if (name == a[i].first) {
-                            cout << a[i].second << endl;
+                        if (name == a[i].second) {
+                            cout << a[i].first<< endl;
                             found = true;
                             break;
                         }
                     }
                     for (int i = 0; i < a.size(); i++) {
-                        if (name == a[i].first) {
+                        if (name == a[i].second) {
                             found_list = true;
                             break;
                         }
