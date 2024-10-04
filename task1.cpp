@@ -2,6 +2,23 @@
 #include<vector>
 #include<bits/stdc++.h>
 using namespace std;
+/*
+*
+* *
+  *
+* * * *
+    *
+    * *
+      *
+* * * * * * * *
+        *
+        * *
+          *
+        * * * *
+            *
+            * *
+              *
+ */
 void problem2(){
     string m;
     cout << "Enter the string : " << endl;
@@ -70,6 +87,7 @@ void problem2(){
     }
     cout << endl;
 }
+
 void problem5(){
     char choice;
     vector<pair<int, string>> a ;
@@ -83,8 +101,15 @@ void problem5(){
         cin >> name >> score;
        a.push_back({score,name});
        sort(a.rbegin(), a.rend());
+       cout << "List of players : "<< endl;
+       for(int j = 0 ; j <= i ; j++){
+           cout << a[j].second << " " << a[j].first;
+           if (j < i) {
+               cout << ", ";
+           }
+       }
+       cout << endl;
     }
-
     while (true) {
         try {
             cout << "Enter a character (a, b, c): " << endl;
@@ -94,7 +119,7 @@ void problem5(){
                 break;
             }
             if (choice != 'a' && choice != 'b' && choice !=
-                                                  'c') {
+            'c') {
                 throw invalid_argument("Invalid input! Please enter 'a', 'b' or 'c'.");
             }
             switch (choice) {
@@ -154,12 +179,31 @@ void problem5(){
                     break;
             }
             cout << "if you want to stop, Enter 'y' to stop" << endl;
-
         }
         catch (invalid_argument &e) {
             cout << e.what();
         }
     }
+}
+
+void problem8(int n , int i){
+  if(n == 1){
+      for(int j = 0 ; j < i ; j++){
+          cout << " ";
+      }
+      cout << "*";
+      cout << endl;
+      return;
+  }
+  problem8(n/2,i);
+  for(int j = 0 ; j < i ; j++){
+        cout << " ";
+    }
+  for(int k = 0 ; k < n ; k++){
+      cout << "* ";
+  }
+  cout << endl;
+  problem8( n / 2,i+ n / 2 );
 }
 int main() {
     int choice;
@@ -190,7 +234,9 @@ int main() {
                 }
                 break;
                 case 8: {
-                  //problem8();
+                    int n;
+                    cin >> n;
+                   problem8(n,0);
                 }
                 break;
                 case 11:{
