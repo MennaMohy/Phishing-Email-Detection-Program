@@ -61,6 +61,12 @@ void problem2(){
             else if(v == "him"){
                 a[i] = "him or her" + string(1, last);
             }
+            else if(v == "Himself"){
+                a[i] = "Himself or herself" + string(1, last);
+            }
+            else if(v == "himself"){
+                a[i] = "himself or herself" + string(1, last);
+            }
         } else {
             if(v == "He"){
                 a[i] = "He or she";
@@ -80,6 +86,12 @@ void problem2(){
             else if(v == "him"){
                 a[i] = "him or her";
             }
+            else if(v == "Himself"){
+                a[i] = "Himself or herself" ;
+            }
+            else if(v == "himself"){
+                a[i] = "himself or herself";
+            }
         }
     }
     for(int i = 0 ; i < a.size() ; i++){
@@ -90,29 +102,15 @@ void problem2(){
 
 void problem5(){
     char choice;
-    vector<pair<int, string>> a ;
-    int n;
-    cout << "Enter the number of players :"<< endl;
-    cin >> n;
-    cout << "Enter the name and score of players : "<< endl;
-    for(int i = 0; i < n ; i++){
-        string name;
-        int score;
-        cin >> name >> score;
-       a.push_back({score,name});
-       sort(a.rbegin(), a.rend());
-       cout << "List of players : "<< endl;
-       for(int j = 0 ; j <= i ; j++){
-           cout << a[j].second << " " << a[j].first;
-           if (j < i) {
-               cout << ", ";
-           }
-       }
-       cout << endl;
-    }
+    vector<pair<int, string>> players;
     while (true) {
         try {
-            cout << "Enter a character (a, b, c): " << endl;
+            cout << "Menu:\n";
+            cout << "a - Add a player\n";
+            cout << "b - Display the list of players\n";
+            cout << "c - Find a player's score\n";
+            cout << "y - Exit\n";
+            cout << "Enter your choice: " << endl;
             cin >> choice;
             choice = tolower(choice);
             if (choice == 'y') {
@@ -129,26 +127,36 @@ void problem5(){
                     cout << "Enter the new player name and score: "<< endl;
                     cin >> name >> score;
                     pair<int,string> t(score, name);
-                    for (int i = 0; i < 10; i++) {
-                        if (score > a[i].first) {
-                            a.erase(a.end() - 1);
-                            a.insert(a.begin() + i, t);
-                            break;
-                        }
-                    }
-                    sort(a.rbegin(), a.rend());
+                     if(players.size() < 10){
+                         players.push_back(t);
+                         sort(players.rbegin(), players.rend());
+                     }
+                     else{
+                         for(int i = 0 ; i < players.size() ; i++){
+                             if(score > players[i].first ){
+                                 players.erase(players.begin()+1);
+                                 players.insert(players.begin()+i,t);
+                                 break;
+                             }
+                         }
+                     }
+                    sort(players.rbegin(), players.rend());
 
                 }
-                    break;
+                break;
                 case 'b' : {
-
-                    for (int i = 0; i < 10; i++) {
-                        cout << a[i].second << " " << a[i].first;
-                        if (i < 9) {
-                            cout << ", ";
+                    cout << "List of players : " << endl;
+                    if (players.empty()) {
+                        cout << "No players to display." << endl;
+                    } else {
+                        for (int i = 0; i < players.size(); i++) {
+                            cout << players[i].second << " " << players[i].first;
+                            if (i < players.size() - 1) {
+                                cout << ", ";
+                            }
                         }
+                        cout << endl;
                     }
-                    cout << endl;
                 }
                 break;
                 case 'c': {
@@ -157,26 +165,25 @@ void problem5(){
                     cin >> name;
                     bool found = false;
                     bool found_list = false;
-                    for (int i = 0; i < 10; i++) {
-                        if (name == a[i].second) {
-                            cout << a[i].first<< endl;
-                            found = true;
-                            break;
-                        }
-                    }
-                    for (int i = 0; i < a.size(); i++) {
-                        if (name == a[i].second) {
+                    for (int i = 0; i < players.size(); i++) {
+                        if (name == players[i].second) {
                             found_list = true;
+                            if(i < 10) {
+                                cout << players[i].first << endl;
+                                found = true;
+                            }
                             break;
                         }
                     }
-                    if (!found && found_list) {
-                        cout << "Player is not in Top 10." << endl;
-                    } else if (!found_list) {
+                    if (!found_list) {
                         cout << "This player is not in this list." << endl;
+
+                    }
+                    else if (!found){
+                        cout << "Player is not in Top 10." << endl;
                     }
                 }
-                    break;
+                break;
             }
             cout << "if you want to stop, Enter 'y' to stop" << endl;
         }
