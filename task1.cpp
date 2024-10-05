@@ -1,6 +1,8 @@
 #include<iostream>
 #include<vector>
 #include<bits/stdc++.h>
+#include<fstream>
+#include<filesystem>
 using namespace std;
 /*
 *
@@ -193,7 +195,7 @@ void problem5(){
     }
 }
 
-void problem8(int n , int i){
+/*void problem8(int n , int i){
   if(n == 1){
       for(int j = 0 ; j < i ; j++){
           cout << " ";
@@ -211,8 +213,131 @@ void problem8(int n , int i){
   }
   cout << endl;
   problem8( n / 2,i+ n / 2 );
+}*/
+
+void problem11() {
+    fstream file1;
+    string filename1;
+    while(true) {
+        cout << "Enter the name of the first file: " << endl;
+        cin >> filename1;
+        file1.open(filename1.c_str(), ios::in);
+        if (!file1) {
+            cout << "The file is not found! please enter valid file name:" << endl;
+            file1.clear();
+            file1.open(filename1.c_str(), ios::in);
+        }
+        else{
+            break;
+        }
+    }
+    fstream file2;
+    string filename2;
+    while (true) {
+        cout << "Enter the name of the second file: " << endl;
+        cin >> filename2;
+        file2.open(filename2.c_str(), ios::in);
+        if (!file2) {
+            cout << "The file is not found! please enter valid file name:" << endl;
+            file2.clear();
+            file2.open(filename2.c_str(), ios::in);
+        }
+        else{
+            break;
+        }
+    }
+    char choice;
+    while (true) {
+        try {
+            cout << "Menu:\n";
+            cout << "a - Compare character by character\n";
+            cout << "b - Compare word by word\n";
+            cout << "y - Exit\n";
+            cout << "Enter your choice: " << endl;
+            cin >> choice;
+            choice = tolower(choice);
+            if (choice == 'y') {
+                break;
+            }
+            if (choice != 'a' && choice != 'b') {
+                throw invalid_argument("Invalid input! Please enter 'a' or 'b'");
+            }
+            switch(choice){
+                case 'a':{
+                  char ch1,ch2;
+                  int position = 1;
+                  bool identical = true;
+                  while(file1.get(ch1) && file2.get(ch2)){
+                      if(ch1 != ch2){
+                          cout << "Files are not identical." << endl;
+                          cout << "Difference at character " << position << endl;
+                          cout << "File 1: " ;
+                          if(ch1 ==' ') cout << "space"<< endl;
+                          else if(ch1 =='\n') cout << "newline"<< endl;
+                          else if(ch1 == '\t')cout << "tab"<< endl;
+                          else cout << ch1 << endl;
+                          cout << "File 2: ";
+                          if(ch2 ==' ') cout << "space"<< endl;
+                          else if(ch2 =='\n') cout << "newline"<< endl;
+                          else if(ch2 == '\t')cout << "tab"<< endl;
+                          else cout << ch2 << endl;
+                          identical = false;
+                          break;
+                      }
+                      position++;
+                  }
+                  if(file1.eof() != file2.eof()){
+                      cout << "The Files are not identical." << endl;
+                      identical = false;
+                  }
+                  if(identical){
+                      cout << "The Files are identical."<< endl;
+                  }
+                    file1.clear(); file1.seekg(0);
+                    file2.clear(); file2.seekg(0);
+                }
+                break;
+                case 'b':{
+                    bool identical = true;
+                    string word1,word2;
+                    vector<string>a , b;
+                   while(file1 >> word1){
+                       a.push_back(word1);
+                   }
+                   while(file2 >> word2 ){
+                       b.push_back(word2);
+                   }
+                    file1.close();
+                    file2.close();
+                   for(int i = 0 ;  i < min(a.size(),b.size()) ; i++){
+                       if(a[i] != b[i]){
+                           cout << "The files are not identical "<< endl;
+                           cout << "file 1 :" << " at word " << i + 1 << " " << a[i] << endl;
+                           cout << "file 2 :" << " at word " << i + 1 << " " << b[i] << endl;
+                           break;
+                       }
+                   }
+                   if(a.size() != b.size()){
+                       identical = false;
+                       break;
+                   }
+                   if(identical){
+                       cout << "The files are identical."<< endl;
+                   }
+                    file1.clear(); file1.seekg(0);  // Reset file stream
+                    file2.clear(); file2.seekg(0);
+                }
+
+            }
+        }
+        catch (invalid_argument &e) {
+            cout << e.what();
+        }
+    }
+
 }
 int main() {
+
     int choice;
     while (true) {
         try {
@@ -243,11 +368,11 @@ int main() {
                 case 8: {
                     int n;
                     cin >> n;
-                   problem8(n,0);
+                    //problem8(n,0);
                 }
                 break;
                 case 11:{
-                  //problem11();
+                  problem11();
                 }
             }
         }
