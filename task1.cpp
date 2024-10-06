@@ -4,23 +4,7 @@
 #include<fstream>
 #include<filesystem>
 using namespace std;
-/*
-*
-* *
-  *
-* * * *
-    *
-    * *
-      *
-* * * * * * * *
-        *
-        * *
-          *
-        * * * *
-            *
-            * *
-              *
- */
+
 void problem2(){
     string m;
     cout << "Enter the string : " << endl;
@@ -194,26 +178,41 @@ void problem5(){
         }
     }
 }
-
-/*void problem8(int n , int i){
-  if(n == 1){
-      for(int j = 0 ; j < i ; j++){
-          cout << " ";
-      }
-      cout << "*";
-      cout << endl;
-      return;
-  }
-  problem8(n/2,i);
-  for(int j = 0 ; j < i ; j++){
-        cout << " ";
+void print(int n ){
+    static int i = 0 ;
+    if(n == 1 ){
+        for(int j = 0 ; j < i ; j++){
+            cout << " ";
+        }
+        cout << "*" << endl;
     }
-  for(int k = 0 ; k < n ; k++){
-      cout << "* ";
-  }
-  cout << endl;
-  problem8( n / 2,i+ n / 2 );
-}*/
+    else if (i > n ){
+        for(int j = 0 ; j < i - n + 1 ; j++ ){
+                 cout << " ";
+        }
+        for(int j = 0 ; j < n ; j++){
+            cout << "* ";
+        }
+        cout << endl;
+    }
+    else{
+        for(int j = 0; j < n ; j++){
+            cout << "* ";
+        }
+        cout << endl;
+    }
+    i++;
+}
+void problem8(int n){
+      if(n <= 1 ){
+          print(1);
+          return;
+      }
+    problem8(n/2);
+    print(n);
+    problem8(n/2);
+}
+
 
 void problem11() {
     fstream file1;
@@ -337,7 +336,6 @@ void problem11() {
 
 }
 int main() {
-
     int choice;
     while (true) {
         try {
@@ -367,8 +365,9 @@ int main() {
                 break;
                 case 8: {
                     int n;
+                    cout << "Enter the size of your pattern : " << endl;
                     cin >> n;
-                    //problem8(n,0);
+                    problem8(n);
                 }
                 break;
                 case 11:{
