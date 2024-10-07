@@ -178,41 +178,25 @@ void problem5(){
         }
     }
 }
-void print(int n ){
-    static int i = 0 ;
-    if(n == 1 ){
-        for(int j = 0 ; j < i ; j++){
-            cout << " ";
-        }
-        cout << "*" << endl;
-    }
-    else if (i > n ){
-        for(int j = 0 ; j < i - n + 1 ; j++ ){
-                 cout << " ";
-        }
-        for(int j = 0 ; j < n ; j++){
-            cout << "* ";
-        }
-        cout << endl;
-    }
-    else{
-        for(int j = 0; j < n ; j++){
-            cout << "* ";
-        }
-        cout << endl;
-    }
-    i++;
-}
-void problem8(int n){
-      if(n <= 1 ){
-          print(1);
-          return;
-      }
-    problem8(n/2);
-    print(n);
-    problem8(n/2);
-}
+void print(int n , int i ){
 
+    for(int k = 0 ; k < i ; k++) {
+        cout << " ";
+    }
+    for(int j = 0 ; j < n ; j++){
+        cout << "* ";
+    }
+    cout << endl;
+}
+void problem8(int n, int i){
+    if(n == 1 ){
+        print(1,i);
+        return;
+    }
+    problem8(n/2, i);
+    print(n,i);
+    problem8(n/2, i + n);
+}
 
 void problem11() {
     fstream file1;
@@ -364,10 +348,16 @@ int main() {
                 }
                 break;
                 case 8: {
-                    int n;
+                    int n,i;
                     cout << "Enter the size of your pattern : " << endl;
-                    cin >> n;
-                    problem8(n);
+                    cin >> n ;
+                    cout << "Enter the index : "<< endl;
+                    cin >> i;
+                    while(n <= 0 || (n & (n-1)) != 0 ){
+                        cout << "The size must be power of 2 : "<< endl;
+                        cin >> n;
+                    }
+                    problem8(n,i);
                 }
                 break;
                 case 11:{
