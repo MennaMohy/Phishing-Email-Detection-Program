@@ -293,7 +293,6 @@ void problem11() {
                     bool identical = true;
                     int line = 1;
                     int smaller_size = min(chars1.size(), chars2.size());
-
                     for (int i = 0; i < smaller_size; i++) {
                         if (chars1[i] != chars2[i]) {
                             identical = false;
@@ -384,8 +383,6 @@ void problem11() {
                         identical = false;
                         cout << "The files have different number of words." << endl;
                         int smaller_size = min(words1.size(), words2.size());
-                        int larger_size = max(words1.size(), words2.size());
-
                         if (words1.size() > words2.size()) {
                             for (size_t i = smaller_size; i < words1.size(); i++) {
                                 cout << "Difference at word position: " << (i + 1) << endl;
@@ -393,7 +390,7 @@ void problem11() {
                                 cout << "File 2: none" << endl;
                             }
                         } else {
-                            for (size_t i = smaller_size; i < words2.size(); i++) {
+                            for (int i = smaller_size; i < words2.size(); i++) {
                                 cout << "Difference at word position: " << (i + 1) << endl;
                                 cout << "File 1: none" << endl;
                                 cout << "File 2: " << words2[i] << endl;
